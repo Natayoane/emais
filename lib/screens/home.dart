@@ -26,7 +26,7 @@ class HomeWidget extends StatelessWidget {
                 height: 219,
                 width: 219,
               ),
-              const Text("Que bom te ver aqui!")
+              const Text("Que bom te ver aqui!!")
             ],
           )),
     );
