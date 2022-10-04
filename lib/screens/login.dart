@@ -1,11 +1,8 @@
 // ignore_for_file: deprecated_member_use
-
-import 'package:emais/screens/cadastro.dart';
-import 'package:emais/screens/login.dart';
 import 'package:flutter/material.dart';
 
-class HomeWidget extends StatelessWidget {
-  const HomeWidget({Key? key}) : super(key: key);
+class LoginWidget extends StatelessWidget {
+  const LoginWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_declarations
@@ -29,56 +26,51 @@ class HomeWidget extends StatelessWidget {
               height: 50,
             ),
             const Text(
-              "Que bom te ver aqui!",
+              "Entre com seu login",
               // ignore: unnecessary_const
               style: const TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontSize: 20,
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
             ),
             const SizedBox(
-              height: 150,
+              height: 50,
             ),
-            Container(
-              height: 55,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 91, 205, 250),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(32),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              // ignore: prefer_const_constructors
+              decoration: InputDecoration(
+                labelText: "E-mail",
+                // ignore: prefer_const_constructors
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
                 ),
               ),
-              child: SizedBox.expand(
-                child: FlatButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: <Widget>[
-                      const Text(
-                        "Cadastrar-se",
-                        // ignore: unnecessary_const
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CadastroWidget(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              style: const TextStyle(fontSize: 20),
             ),
             const SizedBox(
-              height: 25,
+              height: 10,
+            ),
+            TextFormField(
+              keyboardType: TextInputType.text,
+              obscureText: true,
+              // ignore: prefer_const_constructors
+              decoration: InputDecoration(
+                labelText: "Senha",
+                // ignore: prefer_const_constructors
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             Container(
               height: 55,
@@ -106,14 +98,7 @@ class HomeWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginWidget(),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                 ),
               ),
             ),
