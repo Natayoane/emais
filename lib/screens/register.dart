@@ -2,6 +2,7 @@
 import 'package:emais/compoents/custom_button.dart';
 import 'package:emais/compoents/custom_input.dart';
 import 'package:emais/controller/auth_controller.dart';
+import 'package:emais/validations/form_auth_validations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -56,6 +57,7 @@ class RegisterWidget extends StatelessWidget {
                     icon: Icons.email_outlined,
                     label: 'Email',
                     controller: emailController,
+                    validator: EmailValidate,
                   ),
                   CustomInput(
                     icon: Icons.phone,
@@ -68,6 +70,7 @@ class RegisterWidget extends StatelessWidget {
                     label: 'Senha',
                     controller: passwordController,
                     isSecret: true,
+                    validator: PasswordValidate,
                   ),
                   CustomInput(
                     icon: Icons.lock,
