@@ -67,11 +67,13 @@ class RegisterWidget extends StatelessWidget {
                     icon: Icons.lock,
                     label: 'Senha',
                     controller: passwordController,
+                    isSecret: true,
                   ),
                   CustomInput(
                     icon: Icons.lock,
                     label: 'Confirme sua senha',
                     controller: passwordConfirmController,
+                    isSecret: true,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
