@@ -87,7 +87,7 @@ class RegisterWidget extends StatelessWidget {
                 ),
               ),
               child: SizedBox.expand(
-                child: FlatButton(
+                child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     // ignore: prefer_const_literals_to_create_immutables
