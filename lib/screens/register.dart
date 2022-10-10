@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 
-class CadastroWidget extends StatelessWidget {
-  const CadastroWidget({Key? key}) : super(key: key);
+class RegisterWidget extends StatelessWidget {
+  const RegisterWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_declarations

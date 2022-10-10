@@ -1,6 +1,9 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 
+import 'articles.dart';
+import 'register.dart';
+
 class LoginWidget extends StatelessWidget {
   const LoginWidget({Key? key}) : super(key: key);
   @override
@@ -25,18 +28,6 @@ class LoginWidget extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            const Text(
-              "Entre com seu login",
-              // ignore: unnecessary_const
-              style: const TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontSize: 20,
-              ),
-              textAlign: TextAlign.left,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               // ignore: prefer_const_constructors
@@ -48,8 +39,14 @@ class LoginWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                 ),
+                enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Color.fromARGB(150, 255, 255, 255),
+                  width: 1,
+                )),
               ),
-              style: const TextStyle(fontSize: 20),
+
+              style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 10,
@@ -66,8 +63,39 @@ class LoginWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                 ),
+                enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Color.fromARGB(150, 255, 255, 255),
+                  width: 1,
+                )),
               ),
               style: const TextStyle(fontSize: 20),
+            ),
+            FlatButton(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                // ignore: prefer_const_literals_to_create_immutables
+                children: <Widget>[
+                  const Text(
+                    "Não tenho cadastro",
+                    // ignore: unnecessary_const
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                    ),
+                    textAlign: TextAlign.end,
+                  ),
+                ],
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RegisterWidget(),
+                  ),
+                );
+              },
             ),
             const SizedBox(
               height: 50,
@@ -98,7 +126,14 @@ class LoginWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ArticlesWidget(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
