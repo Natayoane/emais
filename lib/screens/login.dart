@@ -1,143 +1,96 @@
 // ignore_for_file: deprecated_member_use
+import 'package:emais/compoents/custom_button.dart';
+import 'package:emais/compoents/text_button_align.dart';
+import 'package:emais/controller/auth_controller.dart';
+import 'package:emais/validations/form_auth_validations.dart';
 import 'package:flutter/material.dart';
-
-import 'articles.dart';
-import 'register.dart';
+import 'package:get/get.dart';
+import '../compoents/custom_input.dart';
+import '../pages_routes/app_pages.dart';
+import 'package:flutter/animation.dart';
 
 class LoginWidget extends StatelessWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+  LoginWidget({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_declarations
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/fundo.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        padding: const EdgeInsets.only(top: 60, left: 40, right: 40),
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 200,
-              height: 200,
-              child: Image.asset("images/logo.png"),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              // ignore: prefer_const_constructors
-              decoration: InputDecoration(
-                labelText: "E-mail",
-                // ignore: prefer_const_constructors
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
-                enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Color.fromARGB(150, 255, 255, 255),
-                  width: 1,
-                )),
-              ),
+    final size = MediaQuery.of(context).size;
 
-              style: const TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              // ignore: prefer_const_constructors
-              decoration: InputDecoration(
-                labelText: "Senha",
-                // ignore: prefer_const_constructors
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
-                enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Color.fromARGB(150, 255, 255, 255),
-                  width: 1,
-                )),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: size.height,
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/fundo.png'),
+                fit: BoxFit.cover,
               ),
-              style: const TextStyle(fontSize: 20),
             ),
-            FlatButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: <Widget>[
-                  const Text(
-                    "Não tenho cadastro",
-                    // ignore: unnecessary_const
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      decoration: TextDecoration.underline,
+            padding: const EdgeInsets.only(left: 40, right: 40),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Image.asset('images/logo.png'),
                     ),
-                    textAlign: TextAlign.end,
                   ),
+                  CustomInput(
+                    icon: Icons.email_outlined,
+                    label: 'Email',
+                    controller: emailController,
+                    validator: EmailValidate,
+                  ),
+                  CustomInput(
+                    icon: Icons.lock,
+                    label: 'Senha',
+                    isSecret: true,
+                    controller: passwordController,
+                    validator: PasswordValidate,
+                  ),
+                  TextButtonAlign(
+                      label: 'Não tenho cadastro',
+                      onPressed: () {
+                        Get.toNamed(PagesRoutes.signUpRoute);
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: SizedBox(
+                        height: 50,
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return CustomButton(
+                              label: 'Entrar',
+                              loading: authController.isLoading.value,
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        authController.signIn(
+                                            email: emailController.text,
+                                            pass: passwordController.text);
+                                      }
+                                    },
+                            );
+                          },
+                        )),
+                  )
                 ],
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RegisterWidget(),
-                  ),
-                );
-              },
             ),
-            const SizedBox(
-              height: 50,
-            ),
-            Container(
-              height: 55,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 91, 205, 250),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(32),
-                ),
-              ),
-              child: SizedBox.expand(
-                child: FlatButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: <Widget>[
-                      const Text(
-                        "Entrar",
-                        // ignore: unnecessary_const
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ArticlesWidget(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

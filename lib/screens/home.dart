@@ -8,7 +8,6 @@ class HomeWidget extends StatelessWidget {
   const HomeWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_declarations
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -37,7 +36,7 @@ class HomeWidget extends StatelessWidget {
                 ),
               ),
               child: SizedBox.expand(
-                child: FlatButton(
+                child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     // ignore: prefer_const_literals_to_create_immutables
@@ -58,7 +57,7 @@ class HomeWidget extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginWidget(),
+                        builder: (context) =>  LoginWidget(),
                       ),
                     );
                   },
