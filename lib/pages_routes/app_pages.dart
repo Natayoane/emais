@@ -7,7 +7,7 @@ abstract class AppPages {
   static final pages = <GetPage>[
     GetPage(
       name: PagesRoutes.signUpRoute,
-      page: () => const RegisterWidget(),
+      page: () => RegisterWidget(),
     ),
     GetPage(
       name: PagesRoutes.signInRoute,

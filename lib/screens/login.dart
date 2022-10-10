@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../compoents/custom_input.dart';
 import '../pages_routes/app_pages.dart';
+import 'package:flutter/animation.dart';
 
 class LoginWidget extends StatelessWidget {
   LoginWidget({Key? key}) : super(key: key);

@@ -1,114 +1,105 @@
 // ignore_for_file: deprecated_member_use
+import 'package:emais/compoents/custom_button.dart';
+import 'package:emais/compoents/custom_input.dart';
+import 'package:emais/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class RegisterWidget extends StatelessWidget {
-  const RegisterWidget({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordConfirmController = TextEditingController();
+  final phoneController = TextEditingController();
+
+  final phoneFormatter = MaskTextInputFormatter(
+      mask: '## # ####-####', filter: {'#': RegExp(r'\d')});
+
+  RegisterWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_declarations
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/fundo.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        padding: const EdgeInsets.only(top: 60, left: 40, right: 40),
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 200,
-              height: 200,
-              child: Image.asset("images/logo.png"),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              // ignore: prefer_const_constructors
-              decoration: InputDecoration(
-                labelText: "E-mail",
-                // ignore: prefer_const_constructors
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: size.height,
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/fundo.png"),
+                fit: BoxFit.cover,
               ),
-              style: const TextStyle(fontSize: 20),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              // ignore: prefer_const_constructors
-              decoration: InputDecoration(
-                labelText: "Senha",
-                // ignore: prefer_const_constructors
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
-              ),
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              // ignore: prefer_const_constructors
-              decoration: InputDecoration(
-                labelText: "Confirme sua senha",
-                // ignore: prefer_const_constructors
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                ),
-              ),
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Container(
-              height: 55,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 91, 205, 250),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(32),
-                ),
-              ),
-              child: SizedBox.expand(
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: <Widget>[
-                      const Text(
-                        "Cadastrar",
-                        // ignore: unnecessary_const
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+            padding: const EdgeInsets.only(top: 30, left: 40, right: 40),
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Image.asset("images/logo.png"),
+                    ),
                   ),
-                  onPressed: () {},
-                ),
+                  CustomInput(
+                    icon: Icons.person,
+                    label: 'Nome Completo',
+                    controller: nameController,
+                  ),
+                  CustomInput(
+                    icon: Icons.email_outlined,
+                    label: 'Email',
+                    controller: emailController,
+                  ),
+                  CustomInput(
+                    icon: Icons.phone,
+                    label: 'Telefone',
+                    controller: phoneController,
+                    inputFormatters: [phoneFormatter],
+                  ),
+                  CustomInput(
+                    icon: Icons.lock,
+                    label: 'Senha',
+                    controller: passwordController,
+                  ),
+                  CustomInput(
+                    icon: Icons.lock,
+                    label: 'Confirme sua senha',
+                    controller: passwordConfirmController,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: SizedBox(
+                        height: 50,
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return CustomButton(
+                              label: 'Entrar',
+                              loading: authController.isLoading.value,
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                FocusScope.of(context).unfocus();
+                                if (_formKey.currentState!.validate()) {
+                                  authController.signUp(name: nameController.text,
+                                      email: emailController.text, phone: phoneController.text,
+                                      password: passwordController.text, context: context);
+                                }
+                              },
+                            );
+                          },
+                        )),
+                  )
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
