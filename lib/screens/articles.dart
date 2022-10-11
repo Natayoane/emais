@@ -1,7 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../compoents/custom_button.dart';
 import '../data/article_data.dart';
 import '../models/article.dart';
 import '../compoents/custom_search.dart';
+import '../pages_routes/app_pages.dart';
 
 class ArticlesWidget extends StatefulWidget {
   const ArticlesWidget({Key? key}) : super(key: key);
@@ -39,7 +44,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
             SizedBox(
               width: 50,
               height: 50,
-              child: Image.asset("images/logo.png"),
+              child: Image.asset("images/logo2.png"),
             ),
             const SizedBox(
               height: 10,
@@ -64,16 +69,78 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
         onChanged: searchArticle,
       );
 
-  Widget buildArticle(Article article) => ListTile(
-        leading: Image.network(
-          article.urlImage,
-          fit: BoxFit.fitWidth,
-          width: 50,
-          height: 50,
+  Widget buildArticle(Article article) => Card(
+        margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
         ),
-        title: Text(article.title),
-        subtitle: Text(article.subTitle),
-        textColor: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(children: [
+              Padding(
+                padding: const EdgeInsets.all(16).copyWith(top: 20),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article.title,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Por @${article.author}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ]),
+              )
+            ]),
+            Stack(
+              children: [
+                Ink.image(
+                  image: NetworkImage(article.urlImage),
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+            Padding(
+                padding: const EdgeInsets.all(16).copyWith(bottom: 6),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article.subTitle,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: CustomButton(
+                          label: 'Ver mais',
+                          color: const Color.fromARGB(255, 245, 169, 184),
+                          onPressed: () {
+                            Get.toNamed(PagesRoutes.articleRoute);
+                          },
+                        ),
+                      ),
+                    ])),
+          ],
+        ),
       );
 
   void searchArticle(String query) {

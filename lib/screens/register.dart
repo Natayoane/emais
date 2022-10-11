@@ -86,17 +86,21 @@ class RegisterWidget extends StatelessWidget {
                           builder: (authController) {
                             return CustomButton(
                               label: 'Entrar',
+                              color: const Color.fromARGB(255, 91, 205, 250),
                               loading: authController.isLoading.value,
                               onPressed: authController.isLoading.value
                                   ? null
                                   : () {
-                                FocusScope.of(context).unfocus();
-                                if (_formKey.currentState!.validate()) {
-                                  authController.signUp(name: nameController.text,
-                                      email: emailController.text, phone: phoneController.text,
-                                      password: passwordController.text, context: context);
-                                }
-                              },
+                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        authController.signUp(
+                                            name: nameController.text,
+                                            email: emailController.text,
+                                            phone: phoneController.text,
+                                            password: passwordController.text,
+                                            context: context);
+                                      }
+                                    },
                             );
                           },
                         )),
