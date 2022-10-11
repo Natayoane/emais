@@ -72,6 +72,7 @@ class LoginWidget extends StatelessWidget {
                           builder: (authController) {
                             return CustomButton(
                               label: 'Entrar',
+                              color: const Color.fromARGB(255, 91, 205, 250),
                               loading: authController.isLoading.value,
                               onPressed: authController.isLoading.value
                                   ? null
