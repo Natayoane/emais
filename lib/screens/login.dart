@@ -80,7 +80,7 @@ class LoginWidget extends StatelessWidget {
                                       if (_formKey.currentState!.validate()) {
                                         authController.signIn(
                                             email: emailController.text,
-                                            pass: passwordController.text);
+                                            pass: passwordController.text, context: context);
                                       }
                                     },
                             );
