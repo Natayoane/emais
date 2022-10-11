@@ -134,7 +134,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
                           label: 'Ver mais',
                           color: const Color.fromARGB(255, 245, 169, 184),
                           onPressed: () {
-                            Get.toNamed(PagesRoutes.articleRoute);
+                            Get.toNamed(PagesRoutes.postRoute);
                           },
                         ),
                       ),
