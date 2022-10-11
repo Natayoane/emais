@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/article_data.dart';
 import '../models/article.dart';
-import '../widget/search_widget.dart';
+import '../compoents/custom_search.dart';
 
 class ArticlesWidget extends StatefulWidget {
   const ArticlesWidget({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
         ),
       ));
 
-  Widget buildSearch() => SearchWidget(
+  Widget buildSearch() => CustomSearch(
         text: query,
         hintText: 'Pesquise aqui',
         onChanged: searchArticle,
