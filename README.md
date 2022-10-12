@@ -1,20 +1,18 @@
-![Thumbnail GitHub](https://s2.glbimg.com/za1o1ECBa-7aRA1aq6Vl0WlWEaA=/0x0:1920x1080/984x0/smart/filters:strip_icc(/i.s3.glbimg.com/v1/AUTH_e84042ef78cb4708aeebdf1c68c6cbd6/internal_photos/bs/2021/q/f/3KL3ESQwA0hY0p21Cuzw/sigla-lgbtqia-.jpg)
+![Thumbnail GitHub](https://drive.google.com/file/d/1MJw1_2dpLd9u61PTHFGIzpMduXJrMP_U/view?usp=sharing)
 
 # Emais
 
-O Emais App é uma rede de apoio para comunidade LGBTQIA+, nessa primeira versão damos foco ao público TRANS.
+O Emais App é uma rede de apoio para comunidade lgbtqiap+, nessa primeira versão damos foco ao público TRANS.
 
 ## 🔨 Características do projeto
 
-Neste projeto, você vai encontrar diversos artigos para orientação do assunto!
-
-![]()
+Neste projeto, você vai encontrar diversos artigos para orientação do assunto diversidade de género.
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
 Para desenvolver o projeto, utilizamos as seguintes técnicas e tecnologias:
 
-- `Material Design`: A estrutura para criar UI/UX utilizando Componentes. (Veja aqui nosso design:)[https://www.figma.com/file/yRQkTzjoFZ8xC6KdZzsFR1/Untitled?node-id=126%3A626]
+- `Material Design`: A estrutura para criar UI/UX utilizando Componentes. [Veja aqui nosso design:](https://www.figma.com/file/yRQkTzjoFZ8xC6KdZzsFR1/Untitled?node-id=126%3A626)
 - `Column`: Componente que permite criação de Colunas.
 - `Card`: Componente para representar algumas informações relacionadas.
 - `Text`: Componente que permite criar Textos.
@@ -43,9 +41,9 @@ Caso opte por IDEs como as duas sugeridas acima, o processo de execução do apl
 
 ## 🛠️ Colaboradores
 
-- (@Natalia Tayoane)[](https://github.com/Natayoane)
+- [@Natalia Tayoane](https://www.linkedin.com/in/natalia-tayoane/):
   Criação do design UX e desenvolvimento do front-end do app.
-- (@Wellington Freitas)[https://github.com/wbfreitas]
+- [@Wellington Freitas](https://www.linkedin.com/in/wfreitasdev/)
   Desenvolvimento full-stack do app.
-- (@Kevin Wirbuls)
+- [@Kevin Wirbuls](https://www.linkedin.com/in/kevin-moraes-369373b6/)
   Testes de usabilidade e regras de negócio do app.
