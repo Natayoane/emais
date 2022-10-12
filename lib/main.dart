@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: auth.isLoading.value ? PagesRoutes.baseRoute : PagesRoutes.signInRoute,
+      initialRoute: auth.isLogged.value ? PagesRoutes.baseRoute : PagesRoutes.signInRoute,
       getPages: AppPages.pages,
     );
   }
