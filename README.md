@@ -24,6 +24,10 @@ Para desenvolver o projeto, utilizamos as seguintes técnicas e tecnologias:
 - `MaterialPageRoute`:Uma rota modal que substitui a tela inteira por uma transição adaptável à plataforma.
 - `GetX`: Gerenciamento de rotas.
 
+## 📼 Vídeos 
+- Contextualização: https://youtu.be/HLAugdlM3ic
+- Usabilidade: https://youtu.be/T_JFjeOo8A8
+
 ## 📁 Acesso ao projeto
 
 ```
