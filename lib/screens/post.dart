@@ -14,33 +14,31 @@ class PostWidget extends StatefulWidget {
 
 class _PostWidgetState extends State<PostWidget> {
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-          appBar: const CustomAppBar().build(context),
-          body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("images/fundo.png"),
-                fit: BoxFit.cover,
-              ),
+  Widget build(BuildContext context) => Scaffold(
+      appBar: const CustomAppBar().build(context),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/fundo.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 20,
             ),
-            child: Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: buildArticle(),
-                ),
-              ],
+            const SizedBox(
+              height: 10,
             ),
-          ));
+            Expanded(
+              child: buildArticle(),
+            ),
+          ],
+        ),
+      ));
 
-  Widget buildArticle() =>
-      Card(
+  Widget buildArticle() => Card(
         margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -48,77 +46,67 @@ class _PostWidgetState extends State<PostWidget> {
         ),
         child: GetX<ArticlesController>(
           builder: (articlesController) {
-            return articlesController.isLoading.value ? const CircularProgressIndicator() : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16).copyWith(top: 20),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                        // ignore: prefer_const_literals_to_create_immutables
+            return articlesController.isLoading.value
+                ? const CircularProgressIndicator()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16).copyWith(top: 20),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                // ignore: prefer_const_constructors
+                                Text(
+                                  articlesController.article!.title,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                // ignore: prefer_const_constructors
+                                Text(
+                                  articlesController.article!.author,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ]),
+                        )
+                      ]),
+                      Stack(
                         children: [
-                          // ignore: prefer_const_constructors
-                          Text(
-                            articlesController.article!.title,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Ink.image(
+                            image: NetworkImage(
+                                articlesController.article!.urlImage),
+                            height: 200,
+                            fit: BoxFit.cover,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          // ignore: prefer_const_constructors
-                          Text(
-                            articlesController.article!.author,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-
-                        ]),
-
-                  )
-                ]),
-                Stack(
-                  children: [
-                    Ink.image(
-                      image: NetworkImage(articlesController.article!.urlImage),
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(16).copyWith(bottom: 6),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          // ignore: prefer_const_constructors
-                          Text(
-                            articlesController.article!.description,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ])),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, right: 10),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: CustomButton(
-                      label: 'Voltar',
-                      color: const Color.fromARGB(255, 245, 169, 184),
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            );
+                        ],
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(16).copyWith(bottom: 6),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                // ignore: prefer_const_constructors
+                                Text(
+                                  articlesController.article!.description,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ])),
+                    ],
+                  );
           },
         ),
       );
