@@ -13,6 +13,7 @@ class ArticlesController extends GetxController {
    void set() async {
     isLoading.value = true;
     CustomResponse response = await _httpManager.restRequest(url: EndPoints.articles, method: HttpMethods.get);
+    Future.delayed(const Duration(milliseconds: 500));
     if(response.statusCode == 200 ) {
       List<dynamic> dynamicArticles = response.data!['artigos'];
       articles.value = dynamicArticles.map((e) => Article.fromJson(e)).toList();

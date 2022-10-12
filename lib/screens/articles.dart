@@ -16,13 +16,13 @@ class ArticlesWidget extends StatefulWidget {
 }
 
 class _ArticlesWidgetState extends State<ArticlesWidget> {
-   late List<Article> articles;
-    String query = '';
+  late List<Article> articles;
+  String query = '';
 
   @override
   void initState() {
     super.initState();
-     ArticlesController articlesController = Get.find<ArticlesController>();
+    ArticlesController articlesController = Get.find<ArticlesController>();
     articlesController.set();
   }
 
@@ -50,20 +50,21 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
                   height: 10,
                 ),
                 buildSearch(),
-                Expanded(
-                  child: GetX<ArticlesController>(
+                GetX<ArticlesController>(
+                  builder: (artController) {
+                    articles = artController.articles;
 
-                    builder: (artController) {
-                      articles = artController.articles;
-                      return !artController.isLoading.value ?  ListView.builder(
-                        itemCount: articles.length,
-                        itemBuilder: (context, index) {
-                          final article = articles[index];
-                          return buildArticle(article);
-                        },
-                      ) : const CircularProgressIndicator();
-                    },
-                  ),
+                    return !artController.isLoading.value ? Expanded(
+                      child: ListView
+                              .builder(
+                            itemCount: articles.length,
+                            itemBuilder: (context, index) {
+                              final article = articles[index];
+                              return buildArticle(article);
+                            },
+                      ),
+                    ) : const CircularProgressIndicator();
+                  },
                 ),
               ],
             ),
@@ -163,7 +164,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
 
     setState(() {
       this.query = query;
-       this.articles = articles;
+      this.articles = articles;
     });
   }
 }
