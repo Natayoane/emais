@@ -39,7 +39,7 @@ Para executar este projeto você precisa:
 
 Caso opte por IDEs como as duas sugeridas acima, o processo de execução do aplicativo funcionará através de um botão de play na parte superior que ambas dispõem. Caso escolha rodar o projeto via linha de comandos, utilize o comando `flutter run`. Lembre-se de antes de executar o comando de navegar até a pasta do projeto antes.
 
-## 🛠️ Colaboradores
+## 🤝​ Colaboradores
 
 - [@Natalia Tayoane](https://www.linkedin.com/in/natalia-tayoane/):
   Criação do design UX e desenvolvimento do front-end do app.
