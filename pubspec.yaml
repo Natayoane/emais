@@ -24,6 +24,22 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   json_serializable: ^6.5.0
   build_runner: ^2.2.1
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "images/icon.png"
+    background_color: "#4C0567"
+    theme_color: "#4C0567"
+  windows:
+    generate: true
+    image_path: "images/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
 
 flutter:
   uses-material-design: true
@@ -31,3 +47,5 @@ flutter:
     - images/logo.png
     - images/logo2.png
     - images/fundo.png
+
+
