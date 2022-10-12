@@ -7,9 +7,11 @@ import '../services/http_manager.dart';
 class ArticlesController extends GetxController {
 
    final HttpManager _httpManager = HttpManager();
+   List<Article> allArticles = List.empty();
    RxBool isLoading = false.obs;
    RxList<Article> articles =  RxList.empty();
    Article? article;
+   String query = '';
 
    void set() async {
     isLoading.value = true;
@@ -18,10 +20,23 @@ class ArticlesController extends GetxController {
     if(response.statusCode == 200 ) {
       List<dynamic> dynamicArticles = response.data!['artigos'];
       articles.value = dynamicArticles.map((e) => Article.fromJson(e)).toList();
+      allArticles = List<Article>.from(articles);
     }
     isLoading.value = false;
   }
 
+
+   void searchArticle(String query) {
+     articles.value = allArticles;
+     articles.value = allArticles.where((articles) {
+       final titleLower = articles.title.toLowerCase();
+       final authorLower = articles.author.toLowerCase();
+       final searchLower = query.toLowerCase();
+
+       return titleLower.contains(searchLower) ||
+           authorLower.contains(searchLower);
+     }).toList();
+   }
 
 
 }

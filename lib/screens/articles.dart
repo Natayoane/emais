@@ -22,11 +22,11 @@ class ArticlesWidget extends StatefulWidget {
 class _ArticlesWidgetState extends State<ArticlesWidget> {
   late List<Article> articles;
   String query = '';
+  ArticlesController articlesController = Get.find<ArticlesController>();
 
   @override
   void initState() {
     super.initState();
-    ArticlesController articlesController = Get.find<ArticlesController>();
     articlesController.set();
   }
 
@@ -72,7 +72,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
   Widget buildSearch() => CustomSearch(
         text: query,
         hintText: 'Pesquise aqui',
-        onChanged: searchArticle,
+         onChanged: articlesController.searchArticle,
       );
 
   Widget buildArticle(Article article, ArticlesController articlesController) => Card(
@@ -150,19 +150,19 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
         ),
       );
 
-  void searchArticle(String query) {
-    final articles = allArticles.where((articles) {
-      final titleLower = articles.title.toLowerCase();
-      final authorLower = articles.author.toLowerCase();
-      final searchLower = query.toLowerCase();
-
-      return titleLower.contains(searchLower) ||
-          authorLower.contains(searchLower);
-    }).toList();
-
-    setState(() {
-      this.query = query;
-      this.articles = articles;
-    });
-  }
+  // void searchArticle(String query) {
+  //   final articles = allArticles.where((articles) {
+  //     final titleLower = articles.title.toLowerCase();
+  //     final authorLower = articles.author.toLowerCase();
+  //     final searchLower = query.toLowerCase();
+  //
+  //     return titleLower.contains(searchLower) ||
+  //         authorLower.contains(searchLower);
+  //   }).toList();
+  //
+  //   setState(() {
+  //     this.query = query;
+  //     this.articles = articles;
+  //   });
+  // }
 }
