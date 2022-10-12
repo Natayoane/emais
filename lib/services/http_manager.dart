@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:emais/config/utils_services.dart';
 import 'package:get/get.dart' as Get;
 
 import '../models/custom_response.dart';
@@ -19,7 +20,7 @@ class HttpManager {
     final defaultHeaders = headers?.cast<String, String>() ?? {}
       ..addAll({
         'Content-type': 'application/json',
-        // 'x-access-token':  token;
+         //'x-access-token':  token;
       });
     try {
       Response response = await dio.request(url,
@@ -37,9 +38,29 @@ class AppInterceptors extends Interceptor {
 
  @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-   if(err.response!.statusCode == 401) {
+   if(err.response!.statusCode == 401 || err.response!.statusCode == 403) {
       Get.Get.offNamed(PagesRoutes.signInRoute);
    }
     return handler.next(err);
+  }
+
+ @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) async {
+   String? token = response!.data['accessToken'];
+   if(token != null) {
+     await UtilsServices().saveLocalData(key: 'token', value: token);
+   }
+   handler.next(response);
+  }
+
+ @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    String? token = await UtilsServices().getLocalData(key: 'token');
+   final defaultHeaders = options.headers?.cast<String, String>() ?? {}
+     ..addAll({
+       'x-access-token': token != null ? token! : ''
+     });
+    options.headers = defaultHeaders;
+   handler.next(options);
   }
 }

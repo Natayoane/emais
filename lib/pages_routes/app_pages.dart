@@ -3,7 +3,7 @@ import 'package:emais/screens/login.dart';
 import 'package:emais/screens/register.dart';
 import 'package:get/get.dart';
 
-import '../screens/article.dart';
+// import '../screens/article.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[

@@ -3,8 +3,11 @@ import 'package:emais/pages_routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'controller/articles_controller.dart';
+
 void main() {
   Get.put(AuthController());
+  Get.put(ArticlesController());
   runApp(const MyApp());
 }
 
