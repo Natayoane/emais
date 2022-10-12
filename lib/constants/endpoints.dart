@@ -1,5 +1,4 @@
-// const String baseUrl = 'https://api.wfreitas.dev/emais';
- const String baseUrl = 'http://192.168.15.5:8181';
+const String baseUrl = 'https://api.wfreitas.dev/emais';
 
 abstract class EndPoints {
   static const String signin = '$baseUrl/api/auth/signin';
