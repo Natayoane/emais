@@ -1,4 +1,4 @@
-![Thumbnail GitHub](https://drive.google.com/file/d/1MJw1_2dpLd9u61PTHFGIzpMduXJrMP_U/view?usp=sharing)
+![Thumbnail GitHub](https://github.com/Natayoane/emais/blob/feature/readme/images/siglas.png)
 
 # Emais
 
@@ -43,7 +43,7 @@ Caso opte por IDEs como as duas sugeridas acima, o processo de execução do apl
 
 - [@Natalia Tayoane](https://www.linkedin.com/in/natalia-tayoane/):
   Criação do design UX e desenvolvimento do front-end do app.
-- [@Wellington Freitas](https://www.linkedin.com/in/wfreitasdev/)
+- [@Wellington Freitas](https://www.linkedin.com/in/wfreitasdev/):
   Desenvolvimento full-stack do app.
-- [@Kevin Wirbuls](https://www.linkedin.com/in/kevin-moraes-369373b6/)
+- [@Kevin Wirbuls](https://www.linkedin.com/in/kevin-moraes-369373b6/):
   Testes de usabilidade e regras de negócio do app.
