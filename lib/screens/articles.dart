@@ -1,12 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:emais/compoents/custom_button.dart';
+import 'package:emais/compoents/custom_search.dart';
+import 'package:emais/controller/articles_controller.dart';
+import 'package:emais/data/article_data.dart';
+import 'package:emais/models/article.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../compoents/custom_button.dart';
-import '../data/article_data.dart';
-import '../models/article.dart';
-import '../compoents/custom_search.dart';
-import '../pages_routes/app_pages.dart';
 
 class ArticlesWidget extends StatefulWidget {
   const ArticlesWidget({Key? key}) : super(key: key);
@@ -17,59 +17,68 @@ class ArticlesWidget extends StatefulWidget {
 
 class _ArticlesWidgetState extends State<ArticlesWidget> {
   late List<Article> articles;
-
   String query = '';
 
   @override
   void initState() {
     super.initState();
-
-    articles = allArticles;
+    ArticlesController articlesController = Get.find<ArticlesController>();
+    articlesController.set();
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
           body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/fundo.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              width: 50,
-              height: 50,
-              child: Image.asset("images/logo2.png"),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            buildSearch(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: articles.length,
-                itemBuilder: (context, index) {
-                  final article = articles[index];
-                  return buildArticle(article);
-                },
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/fundo.png"),
+                fit: BoxFit.cover,
               ),
             ),
-          ],
-        ),
-      ));
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: Image.asset("images/logo2.png"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildSearch(),
+                GetX<ArticlesController>(
+                  builder: (artController) {
+                    articles = artController.articles;
 
-  Widget buildSearch() => CustomSearch(
+                    return !artController.isLoading.value ? Expanded(
+                      child: ListView
+                              .builder(
+                            itemCount: articles.length,
+                            itemBuilder: (context, index) {
+                              final article = articles[index];
+                              return buildArticle(article);
+                            },
+                      ),
+                    ) : const CircularProgressIndicator();
+                  },
+                ),
+              ],
+            ),
+          ));
+
+  Widget buildSearch() =>
+      CustomSearch(
         text: query,
         hintText: 'Pesquise aqui',
         onChanged: searchArticle,
       );
 
-  Widget buildArticle(Article article) => Card(
+  Widget buildArticle(Article article) =>
+      Card(
         margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -134,7 +143,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
                           label: 'Ver mais',
                           color: const Color.fromARGB(255, 245, 169, 184),
                           onPressed: () {
-                            Get.toNamed(PagesRoutes.articleRoute);
+                            // Get.toNamed(PagesRoutes.articleRoute);
                           },
                         ),
                       ),

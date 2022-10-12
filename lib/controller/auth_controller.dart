@@ -1,35 +1,57 @@
 
+import 'package:emais/constants/mensagens.dart';
+import 'package:emais/models/custom_response.dart';
+import 'package:emais/models/user_model.dart';
 import 'package:emais/pages_routes/app_pages.dart';
+import 'package:emais/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'dart:developer';
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
+  final authService = AuthService();
 
-  signIn({required String email, required String pass}) async {
+  signIn({required String email, required String pass, required context}) async {
     isLoading.value = true;
-    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      CustomResponse response = await authService.signIn(email: email, password: pass);
+      if(response.statusCode == 200) {
+        UserModel userModel = UserModel.fromJson(response.data!);
+        Get.offNamed(PagesRoutes.baseRoute);
+      } else if(response.error == 'Invalid Autentication') {
+          _error(context, Mensagens.errorUserPassword);
+      }
+    } catch (error) {
+      log(error.toString());
+      _error(context, Mensagens.genaricError);
+    }
     isLoading.value = false;
-    Get.offNamed(PagesRoutes.baseRoute);
   }
 
   signUp({required String name, required String email,
     required  String phone, required String password, required  context}) async {
-
     isLoading.value = true;
-    await Future.delayed(const Duration(milliseconds: 500));
+
+    try {
+      await authService.signUp(email: email, password: password, phone: phone, userName: name);
+      Get.offNamed(PagesRoutes.signInRoute);
+      _sucessSignUp(context);
+    }catch (error) {
+      log(error.toString());
+      _error(context, Mensagens.genaricError);
+    }
     isLoading.value = false;
-    Get.offNamed(PagesRoutes.signInRoute);
-    _sucessSignUp(context);
   }
 
    _sucessSignUp(context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text('Usuario cadastrado com sucesso!!'),
+        backgroundColor: Colors.green,
+        content: const Text(Mensagens.sucessRegister),
         action: SnackBarAction(
           label: 'OK',
+          textColor: Colors.white,
           onPressed: () {
             // Code to execute.
           },
@@ -38,5 +60,11 @@ class AuthController extends GetxController {
     );
   }
 
-
+  _error(context, String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(msg)),
+    );
+  }
 }
