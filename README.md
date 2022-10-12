@@ -40,3 +40,12 @@ Para executar este projeto você precisa:
 - Ter algum editor de códigos ou IDE como o [Android Studio](https://developer.android.com/studio) ou [Intellij Idea](https://www.jetbrains.com/pt-br/idea/download/).
 
 Caso opte por IDEs como as duas sugeridas acima, o processo de execução do aplicativo funcionará através de um botão de play na parte superior que ambas dispõem. Caso escolha rodar o projeto via linha de comandos, utilize o comando `flutter run`. Lembre-se de antes de executar o comando de navegar até a pasta do projeto antes.
+
+## 🛠️ Colaboradores
+
+- (@Natalia Tayoane)[](https://github.com/Natayoane)
+  Criação do design UX e desenvolvimento do front-end do app.
+- (@Wellington Freitas)[https://github.com/wbfreitas]
+  Desenvolvimento full-stack do app.
+- (@Kevin Wirbuls)
+  Testes de usabilidade e regras de negócio do app.
