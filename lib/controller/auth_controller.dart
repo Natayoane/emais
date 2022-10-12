@@ -1,4 +1,5 @@
 
+import 'package:emais/config/utils_services.dart';
 import 'package:emais/constants/mensagens.dart';
 import 'package:emais/models/custom_response.dart';
 import 'package:emais/models/user_model.dart';
@@ -42,6 +43,28 @@ class AuthController extends GetxController {
       _error(context, Mensagens.genaricError);
     }
     isLoading.value = false;
+  }
+
+    sessionValidate() async {
+      isLoading.value = false;
+    try {
+      String? token = await UtilsServices().getLocalData(key: 'token');
+      if(token == null) {
+        isLoading.value = false;
+        return false;
+      }
+      CustomResponse response = await authService.getUser();
+      if(response.statusCode == 200) {
+        isLoading.value = true;
+      }
+    } catch (error) {
+      log(error.toString());
+    }
+    return false;
+  }
+
+  logoff() async {
+    await UtilsServices().removeLocalData(key: 'token');
   }
 
    _sucessSignUp(context) {

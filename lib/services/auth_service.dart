@@ -23,10 +23,8 @@ class AuthService {
     });
   }
 
-  Future getUser(String token) async {
-    return _httpManager.restRequest(url: EndPoints.user, method: HttpMethods.get, headers: {
-      'x-access-token': token
-    });
+  Future getUser() async {
+    return _httpManager.restRequest(url: EndPoints.user, method: HttpMethods.get);
   }
 
 }

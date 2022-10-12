@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:emais/compoents/custom_app_bar.dart';
 import 'package:emais/compoents/custom_button.dart';
 import 'package:emais/compoents/custom_search.dart';
 import 'package:emais/controller/articles_controller.dart';
+import 'package:emais/controller/auth_controller.dart';
 import 'package:emais/data/article_data.dart';
 import 'package:emais/models/article.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +22,17 @@ class ArticlesWidget extends StatefulWidget {
 class _ArticlesWidgetState extends State<ArticlesWidget> {
   late List<Article> articles;
   String query = '';
+  ArticlesController articlesController = Get.find<ArticlesController>();
 
   @override
   void initState() {
     super.initState();
-    ArticlesController articlesController = Get.find<ArticlesController>();
     articlesController.set();
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    appBar: const CustomAppBar().build(context),
           body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -42,11 +45,6 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
             const SizedBox(
               height: 20,
             ),
-            SizedBox(
-              width: 50,
-              height: 50,
-              child: Image.asset("images/logo2.png"),
-            ),
             const SizedBox(
               height: 10,
             ),
@@ -54,14 +52,13 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
             GetX<ArticlesController>(
               builder: (artController) {
                 articles = artController.articles;
-
                 return !artController.isLoading.value
                     ? Expanded(
                         child: ListView.builder(
                           itemCount: articles.length,
                           itemBuilder: (context, index) {
                             final article = articles[index];
-                            return buildArticle(article);
+                            return buildArticle(article, artController);
                           },
                         ),
                       )
@@ -75,10 +72,10 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
   Widget buildSearch() => CustomSearch(
         text: query,
         hintText: 'Pesquise aqui',
-        onChanged: searchArticle,
+         onChanged: articlesController.searchArticle,
       );
 
-  Widget buildArticle(Article article) => Card(
+  Widget buildArticle(Article article, ArticlesController articlesController) => Card(
         margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -143,6 +140,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
                           label: 'Ver mais',
                           color: const Color.fromARGB(255, 245, 169, 184),
                           onPressed: () {
+                            articlesController.article = article;
                             Get.toNamed(PagesRoutes.postRoute);
                           },
                         ),
@@ -152,19 +150,19 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
         ),
       );
 
-  void searchArticle(String query) {
-    final articles = allArticles.where((articles) {
-      final titleLower = articles.title.toLowerCase();
-      final authorLower = articles.author.toLowerCase();
-      final searchLower = query.toLowerCase();
-
-      return titleLower.contains(searchLower) ||
-          authorLower.contains(searchLower);
-    }).toList();
-
-    setState(() {
-      this.query = query;
-      this.articles = articles;
-    });
-  }
+  // void searchArticle(String query) {
+  //   final articles = allArticles.where((articles) {
+  //     final titleLower = articles.title.toLowerCase();
+  //     final authorLower = articles.author.toLowerCase();
+  //     final searchLower = query.toLowerCase();
+  //
+  //     return titleLower.contains(searchLower) ||
+  //         authorLower.contains(searchLower);
+  //   }).toList();
+  //
+  //   setState(() {
+  //     this.query = query;
+  //     this.articles = articles;
+  //   });
+  // }
 }
