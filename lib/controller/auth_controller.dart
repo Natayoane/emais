@@ -44,6 +44,19 @@ class AuthController extends GetxController {
     isLoading.value = false;
   }
 
+    sessionValidate() async {
+      isLoading.value = false;
+    try {
+      CustomResponse response = await authService.getUser();
+      if(response.statusCode == 200) {
+        isLoading.value = true;
+      }
+    } catch (error) {
+      log(error.toString());
+    }
+    return false;
+  }
+
    _sucessSignUp(context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
