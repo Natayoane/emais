@@ -9,6 +9,7 @@ class ArticlesController extends GetxController {
    final HttpManager _httpManager = HttpManager();
    RxBool isLoading = false.obs;
    RxList<Article> articles =  RxList.empty();
+   Article? article;
 
    void set() async {
     isLoading.value = true;

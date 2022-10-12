@@ -1,4 +1,9 @@
+import 'package:emais/compoents/custom_app_bar.dart';
+import 'package:emais/compoents/custom_button.dart';
+import 'package:emais/controller/articles_controller.dart';
+import 'package:emais/pages_routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PostWidget extends StatefulWidget {
   const PostWidget({Key? key}) : super(key: key);
@@ -9,96 +14,112 @@ class PostWidget extends StatefulWidget {
 
 class _PostWidgetState extends State<PostWidget> {
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
+          appBar: const CustomAppBar().build(context),
           body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/fundo.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 20,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/fundo.png"),
+                fit: BoxFit.cover,
+              ),
             ),
-            SizedBox(
-              width: 50,
-              height: 50,
-              child: Image.asset("images/logo2.png"),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 20,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: buildArticle(),
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: buildArticle(),
-            ),
-          ],
-        ),
-      ));
+          ));
 
-  Widget buildArticle() => Card(
+  Widget buildArticle() =>
+      Card(
         margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(children: [
-              Padding(
-                padding: const EdgeInsets.all(16).copyWith(top: 20),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      // ignore: prefer_const_constructors
-                      Text(
-                        'a',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // ignore: prefer_const_constructors
-                      Text(
-                        'Por s',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ]),
-              )
-            ]),
-            Stack(
+        child: GetX<ArticlesController>(
+          builder: (articlesController) {
+            return articlesController.isLoading.value ? const CircularProgressIndicator() : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Ink.image(
-                  image: const NetworkImage(
-                      'https://st2.depositphotos.com/6544740/9337/i/600/depositphotos_93376372-stock-photo-sunset-over-sea-pier.jpg'),
-                  height: 100,
-                  fit: BoxFit.cover,
+                Stack(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16).copyWith(top: 20),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          // ignore: prefer_const_constructors
+                          Text(
+                            articlesController.article!.title,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          // ignore: prefer_const_constructors
+                          Text(
+                            articlesController.article!.author,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+
+                        ]),
+
+                  )
+                ]),
+                Stack(
+                  children: [
+                    Ink.image(
+                      image: NetworkImage(articlesController.article!.urlImage),
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(16).copyWith(bottom: 6),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          // ignore: prefer_const_constructors
+                          Text(
+                            articlesController.article!.description,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ])),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, right: 10),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: CustomButton(
+                      label: 'Voltar',
+                      color: const Color.fromARGB(255, 245, 169, 184),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                  ),
                 ),
               ],
-            ),
-            Padding(
-                padding: const EdgeInsets.all(16).copyWith(bottom: 6),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      // ignore: prefer_const_constructors
-                      Text(
-                        'h',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ])),
-          ],
+            );
+          },
         ),
       );
 }

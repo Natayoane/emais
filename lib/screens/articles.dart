@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:emais/compoents/custom_app_bar.dart';
 import 'package:emais/compoents/custom_button.dart';
 import 'package:emais/compoents/custom_search.dart';
 import 'package:emais/controller/articles_controller.dart';
+import 'package:emais/controller/auth_controller.dart';
 import 'package:emais/data/article_data.dart';
 import 'package:emais/models/article.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    appBar: const CustomAppBar().build(context),
           body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -42,11 +45,6 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
             const SizedBox(
               height: 20,
             ),
-            SizedBox(
-              width: 50,
-              height: 50,
-              child: Image.asset("images/logo2.png"),
-            ),
             const SizedBox(
               height: 10,
             ),
@@ -54,14 +52,13 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
             GetX<ArticlesController>(
               builder: (artController) {
                 articles = artController.articles;
-
                 return !artController.isLoading.value
                     ? Expanded(
                         child: ListView.builder(
                           itemCount: articles.length,
                           itemBuilder: (context, index) {
                             final article = articles[index];
-                            return buildArticle(article);
+                            return buildArticle(article, artController);
                           },
                         ),
                       )
@@ -78,7 +75,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
         onChanged: searchArticle,
       );
 
-  Widget buildArticle(Article article) => Card(
+  Widget buildArticle(Article article, ArticlesController articlesController) => Card(
         margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -143,6 +140,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
                           label: 'Ver mais',
                           color: const Color.fromARGB(255, 245, 169, 184),
                           onPressed: () {
+                            articlesController.article = article;
                             Get.toNamed(PagesRoutes.postRoute);
                           },
                         ),
