@@ -14,11 +14,32 @@ dependencies:
   get: ^4.6.5
   mask_text_input_formatter: ^2.4.0
   animations: ^2.0.7
+  dio: ^4.0.6
+  flutter_secure_storage: ^5.0.2
+  flutter_native_splash: ^2.2.11
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  json_serializable: ^6.5.0
+  build_runner: ^2.2.1
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "images/icon.png"
+    background_color: "#4C0567"
+    theme_color: "#4C0567"
+  windows:
+    generate: true
+    image_path: "images/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
 
 flutter:
   uses-material-design: true
@@ -26,3 +47,5 @@ flutter:
     - images/logo.png
     - images/logo2.png
     - images/fundo.png
+
+

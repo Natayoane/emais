@@ -1,11 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:emais/compoents/custom_button.dart';
+import 'package:emais/compoents/custom_search.dart';
+import 'package:emais/controller/articles_controller.dart';
+import 'package:emais/data/article_data.dart';
+import 'package:emais/models/article.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../compoents/custom_button.dart';
-import '../data/article_data.dart';
-import '../models/article.dart';
-import '../compoents/custom_search.dart';
+
 import '../pages_routes/app_pages.dart';
 
 class ArticlesWidget extends StatefulWidget {
@@ -17,14 +19,13 @@ class ArticlesWidget extends StatefulWidget {
 
 class _ArticlesWidgetState extends State<ArticlesWidget> {
   late List<Article> articles;
-
   String query = '';
 
   @override
   void initState() {
     super.initState();
-
-    articles = allArticles;
+    ArticlesController articlesController = Get.find<ArticlesController>();
+    articlesController.set();
   }
 
   @override
@@ -37,7 +38,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
           ),
         ),
         child: Column(
-          children: <Widget>[
+          children: [
             const SizedBox(
               height: 20,
             ),
@@ -50,14 +51,22 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
               height: 10,
             ),
             buildSearch(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: articles.length,
-                itemBuilder: (context, index) {
-                  final article = articles[index];
-                  return buildArticle(article);
-                },
-              ),
+            GetX<ArticlesController>(
+              builder: (artController) {
+                articles = artController.articles;
+
+                return !artController.isLoading.value
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemCount: articles.length,
+                          itemBuilder: (context, index) {
+                            final article = articles[index];
+                            return buildArticle(article);
+                          },
+                        ),
+                      )
+                    : const CircularProgressIndicator();
+              },
             ),
           ],
         ),
