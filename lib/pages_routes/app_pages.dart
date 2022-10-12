@@ -2,8 +2,7 @@ import 'package:emais/screens/articles.dart';
 import 'package:emais/screens/login.dart';
 import 'package:emais/screens/register.dart';
 import 'package:get/get.dart';
-
-// import '../screens/article.dart';
+import '../screens/post.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
@@ -19,10 +18,10 @@ abstract class AppPages {
       name: PagesRoutes.baseRoute,
       page: () => const ArticlesWidget(),
     ),
-    // GetPage(
-    //   name: PagesRoutes.articleRoute,
-    //   page: () => const ArticleWidget(),
-    // ),
+    GetPage(
+      name: PagesRoutes.postRoute,
+      page: () => const PostWidget(),
+    ),
   ];
 }
 
@@ -30,5 +29,5 @@ abstract class PagesRoutes {
   static const String signUpRoute = '/signup';
   static const String signInRoute = '/signin';
   static const String baseRoute = '/';
-  // static const String articleRoute = '/article';
+  static const String postRoute = '/post';
 }
