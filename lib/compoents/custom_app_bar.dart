@@ -18,8 +18,8 @@ class CustomAppBar extends StatelessWidget {
         child: Image.asset("images/logo2.png"),
       ),
       actions: [
-        IconButton(onPressed: () {
-          Get.find<AuthController>().logoff();
+        IconButton(onPressed: () async {
+          await Get.find<AuthController>().logoff();
           Get.offNamed(PagesRoutes.signInRoute);
         }, icon: const Icon(Icons.exit_to_app))
       ],

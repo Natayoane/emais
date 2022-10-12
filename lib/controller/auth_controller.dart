@@ -11,6 +11,8 @@ import 'dart:developer';
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isLogged = false.obs;
+
   final authService = AuthService();
 
   signIn({required String email, required String pass, required context}) async {
@@ -46,16 +48,16 @@ class AuthController extends GetxController {
   }
 
     sessionValidate() async {
-      isLoading.value = false;
+      isLogged.value = false;
     try {
       String? token = await UtilsServices().getLocalData(key: 'token');
       if(token == null) {
-        isLoading.value = false;
+        isLogged.value = false;
         return false;
       }
       CustomResponse response = await authService.getUser();
       if(response.statusCode == 200) {
-        isLoading.value = true;
+        isLogged.value = true;
       }
     } catch (error) {
       log(error.toString());
@@ -64,6 +66,7 @@ class AuthController extends GetxController {
   }
 
   logoff() async {
+    isLoading.value = false;
     await UtilsServices().removeLocalData(key: 'token');
   }
 
