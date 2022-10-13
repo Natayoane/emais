@@ -30,7 +30,6 @@ Para desenvolver o projeto, utilizamos as seguintes técnicas e tecnologias:
 
 ## 📼 Vídeos 
 - Contextualização: https://youtu.be/HLAugdlM3ic
-- Usabilidade: https://youtu.be/T_JFjeOo8A8
 
 ## 📁 Acesso ao projeto
 
