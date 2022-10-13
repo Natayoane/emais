@@ -3,6 +3,10 @@
 # Emais
 
 O Emais App é uma rede de apoio para comunidade lgbtqiap+, nessa primeira versão damos foco ao público TRANS.
+ 
+## 📼 Vídeos 
+
+- [Contextualização + Navegação](https://youtu.be/P0JtOclYrZo)
 
 ## 🔨 Características do projeto
 
